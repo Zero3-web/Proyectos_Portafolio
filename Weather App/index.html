@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="weather-container">        <!-- Header -->
+        <div class="header">
+            <div class="location-date">
+                <div class="location">Multan</div>
+                <div class="date">21.04.2021</div>
+            </div>
+            <div class="search-container">
+                <div class="search-box">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <input type="text" id="citySearch" placeholder="Search city..." autocomplete="off">
+                    <div class="search-suggestions" id="searchSuggestions"></div>
+                </div>
+            </div>
+            <div class="greeting-time">
+                <div class="greeting">Good Morning</div>
+                <div class="time">12:27 PM</div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Left Side - Main Temperature -->
+            <div class="main-weather">
+                <div class="temperature-large">20°</div>
+                <div class="condition">Cloudy</div>                <div class="weather-details">
+                    <div class="detail-item floating">
+                        <svg class="weather-icon wind" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 8h7a3 3 0 0 1 3 3v0a3 3 0 0 1-3 3M3 12h9M3 16h5a3 3 0 0 1 3 3v0a3 3 0 0 1-3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>6.1 mph</span>
+                    </div>
+                    <div class="detail-item floating">
+                        <svg class="weather-icon humidity" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 3v0c0 0 6.5 6 6.5 10a6.5 6.5 0 0 1-13 0c0-4 6.5-10 6.5-10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>90 %</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side - Current Info -->
+            <div class="right-side">
+                <div class="current-info">
+                    <div class="current-temp">
+                        <div class="temp-value">20°</div>                        <div class="wind-humidity">
+                            <div class="wind">
+                                <svg class="weather-icon wind" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3 8h7a3 3 0 0 1 3 3v0a3 3 0 0 1-3 3M3 12h9M3 16h5a3 3 0 0 1 3 3v0a3 3 0 0 1-3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                6.1 mph
+                            </div>
+                            <div class="humidity">
+                                <svg class="weather-icon humidity" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 3v0c0 0 6.5 6 6.5 10a6.5 6.5 0 0 1-13 0c0-4 6.5-10 6.5-10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                90 %
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feels-like">
+                        <div>Feels like 19°</div>
+                        <div class="condition-small">Cloudy</div>
+                    </div>
+                </div>
+
+                <!-- Hourly Forecast -->
+                <div class="hourly-forecast">
+                    <h3>Hourly Forecast</h3>
+                    <div class="hourly-items">
+                        <div class="hourly-item">
+                            <div class="hour">1 PM</div>
+                            <div class="hourly-temp">20°</div>
+                            <div class="hourly-condition">Cloudy</div>
+                        </div>
+                        <div class="hourly-item">
+                            <div class="hour">2 PM</div>
+                            <div class="hourly-temp">21°</div>
+                            <div class="hourly-condition">Rainy</div>
+                        </div>
+                        <div class="hourly-item">
+                            <div class="hour">3 PM</div>
+                            <div class="hourly-temp">21°</div>
+                            <div class="hourly-condition">Rainy</div>
+                        </div>
+                        <div class="hourly-item">
+                            <div class="hour">4 PM</div>
+                            <div class="hourly-temp">20°</div>
+                            <div class="hourly-condition">Cloudy</div>
+                        </div>
+                        <div class="hourly-item">
+                            <div class="hour">5 PM</div>
+                            <div class="hourly-temp">21°</div>
+                            <div class="hourly-condition">Rainy</div>
+                        </div>
+                        <div class="hourly-item">
+                            <div class="hour">6 PM</div>
+                            <div class="hourly-temp">21°</div>
+                            <div class="hourly-condition">Rainy</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>        <!-- Weekly Forecast -->
+        <div class="weekly-forecast-container">
+            <div class="weekly-forecast">
+                <div class="day-item active">
+                    <div class="day">Today</div>
+                    <div class="day-temp">20°</div>
+                    <div class="day-condition">Mist</div>
+                </div>
+                <div class="day-item">
+                    <div class="day">Tue</div>
+                    <div class="day-temp">32°</div>
+                    <div class="day-condition">Sunny</div>
+                </div>
+                <div class="day-item">
+                    <div class="day">Wed</div>
+                    <div class="day-temp">12°</div>
+                    <div class="day-condition">Rainy</div>
+                </div>
+                <div class="day-item">
+                    <div class="day">Thu</div>
+                    <div class="day-temp">13°</div>
+                    <div class="day-condition">Rainy</div>
+                </div>
+                <div class="day-item">
+                    <div class="day">Fri</div>
+                    <div class="day-temp">22°</div>
+                    <div class="day-condition">Mist</div>
+                </div>
+                <div class="day-item">
+                    <div class="day">Sat</div>
+                    <div class="day-temp">22°</div>
+                    <div class="day-condition">Mist</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

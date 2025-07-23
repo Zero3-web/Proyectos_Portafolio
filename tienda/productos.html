@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="theme-color" content="#e91e63">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="manifest" href="manifest.json">
+    <title>Productos - Glam Beauty</title>    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/productos.css">
+    <link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <i class="fas fa-gem"></i>
+                    <span>Glam Beauty</span>
+                </div>
+                
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="productos.html" class="nav-link active">Productos</a></li>
+                    <li><a href="#" class="nav-link">Categorías</a></li>
+                    <li><a href="#" class="nav-link">Ofertas</a></li>
+                    <li><a href="#" class="nav-link">Contacto</a></li>
+                </ul>
+
+                <div class="nav-icons">
+                    <div class="search-container">
+                        <input type="text" class="search-input" placeholder="Buscar productos..." id="search-input">
+                        <i class="fas fa-search search-icon"></i>
+                    </div>
+                    <button class="cart-btn" onclick="toggleCart()">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span class="cart-count">0</span>
+                    </button>
+                    <button class="menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <!-- Filtros y Ordenamiento -->
+            <div class="filters-section">
+                <div class="filters-header">
+                    <h1>Todos los Productos</h1>
+                    <div class="view-toggle">
+                        <button class="view-btn active" data-view="grid">
+                            <i class="fas fa-th"></i>
+                        </button>
+                        <button class="view-btn" data-view="list">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="filters-controls">
+                    <div class="filter-group">
+                        <label>Categoría:</label>
+                        <select id="category-filter">
+                            <option value="">Todas las categorías</option>
+                            <option value="labios">Labios</option>
+                            <option value="ojos">Ojos</option>
+                            <option value="rostro">Rostro</option>
+                            <option value="unas">Uñas</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>Precio:</label>
+                        <select id="price-filter">
+                            <option value="">Todos los precios</option>
+                            <option value="0-20">$0 - $20</option>
+                            <option value="20-50">$20 - $50</option>
+                            <option value="50-100">$50 - $100</option>
+                            <option value="100+">$100+</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>Marca:</label>
+                        <select id="brand-filter">
+                            <option value="">Todas las marcas</option>
+                            <option value="MAC">MAC</option>
+                            <option value="Maybelline">Maybelline</option>
+                            <option value="L'Oréal">L'Oréal</option>
+                            <option value="Revlon">Revlon</option>
+                            <option value="Urban Decay">Urban Decay</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>Ordenar por:</label>
+                        <select id="sort-filter">
+                            <option value="name">Nombre A-Z</option>
+                            <option value="name-desc">Nombre Z-A</option>
+                            <option value="price">Precio: Menor a Mayor</option>
+                            <option value="price-desc">Precio: Mayor a Menor</option>
+                            <option value="rating">Mejor Valorados</option>
+                        </select>
+                    </div>
+
+                    <button class="clear-filters" onclick="clearAllFilters()">
+                        <i class="fas fa-times"></i> Limpiar Filtros
+                    </button>
+                </div>
+            </div>
+
+            <!-- Resultados -->
+            <div class="products-section">
+                <div class="products-info">
+                    <span id="products-count">0 productos encontrados</span>
+                </div>
+
+                <div class="products-grid" id="products-grid">
+                    <!-- Los productos se cargarán dinámicamente -->
+                </div>
+
+                <!-- Paginación -->
+                <div class="pagination" id="pagination">
+                    <!-- La paginación se generará dinámicamente -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-gem"></i> Glam Beauty</h3>
+                    <p>Tu tienda de confianza para productos de maquillaje de alta calidad.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Categorías</h4>
+                    <ul>
+                        <li><a href="#" onclick="filterByCategory('labios')">Labios</a></li>
+                        <li><a href="#" onclick="filterByCategory('ojos')">Ojos</a></li>
+                        <li><a href="#" onclick="filterByCategory('rostro')">Rostro</a></li>
+                        <li><a href="#" onclick="filterByCategory('unas')">Uñas</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Ayuda</h4>
+                    <ul>
+                        <li><a href="#">Envíos</a></li>
+                        <li><a href="#">Devoluciones</a></li>
+                        <li><a href="#">Contacto</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <p><i class="fas fa-phone"></i> +1 234 567 890</p>
+                    <p><i class="fas fa-envelope"></i> info@glambeauty.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Beauty Street</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Glam Beauty. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Carrito de Compras -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>Carrito de Compras</h3>
+            <button class="close-cart" onclick="toggleCart()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Los items del carrito se mostrarán aquí -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <strong>Total: $<span id="cart-total">0.00</span></strong>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="goToCheckout()">
+                Proceder al Pago
+            </button>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay" onclick="toggleCart()"></div>
+
+    <script src="js/data.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/productos.js"></script>
+</body>
+</html>

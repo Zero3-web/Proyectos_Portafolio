@@ -1,0 +1,274 @@
+/* Estilos específicos para dispositivos móviles */
+
+/* Optimizaciones generales para móviles */
+.mobile-device {
+    -webkit-tap-highlight-color: rgba(233, 30, 99, 0.3);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.mobile-device input,
+.mobile-device textarea,
+.mobile-device select {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+/* Mejoras para áreas de toque */
+.mobile-device .btn,
+.mobile-device .nav-link,
+.mobile-device .product-card {
+    position: relative;
+}
+
+.mobile-device .btn::after,
+.mobile-device .nav-link::after,
+.mobile-device .product-card::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    z-index: -1;
+}
+
+/* Optimización de scroll */
+.mobile-device {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+}
+
+.mobile-device .navbar {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+/* Mejoras para formularios en móviles */
+.mobile-device input[type="text"],
+.mobile-device input[type="email"],
+.mobile-device input[type="password"],
+.mobile-device input[type="number"],
+.mobile-device input[type="tel"],
+.mobile-device textarea,
+.mobile-device select {
+    font-size: 16px !important; /* Evita zoom en iOS */
+    border-radius: 8px;
+    padding: 12px 16px;
+    border: 2px solid var(--gray-300);
+    transition: border-color 0.3s ease;
+}
+
+.mobile-device input:focus,
+.mobile-device textarea:focus,
+.mobile-device select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
+}
+
+/* Mejoras para el carrito en móviles */
+.mobile-device .cart-sidebar {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+}
+
+.mobile-device .cart-content {
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+}
+
+/* Mejoras para modales en móviles */
+.mobile-device .modal {
+    padding: 10px;
+}
+
+.mobile-device .modal-content {
+    width: calc(100vw - 20px);
+    max-height: calc(100vh - 40px);
+    border-radius: 12px;
+    overflow-y: auto;
+}
+
+/* Mejoras para botones en móviles */
+.mobile-device .btn {
+    min-height: 48px;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.mobile-device .btn-sm {
+    min-height: 44px;
+    padding: 10px 16px;
+    font-size: 14px;
+}
+
+/* Mejoras para la navegación móvil */
+.mobile-device .nav-menu.active {
+    animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* Mejoras para grids en móviles */
+.mobile-device .product-grid {
+    gap: 12px;
+}
+
+.mobile-device .product-card {
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mobile-device .product-card:active {
+    transform: scale(0.98);
+}
+
+/* Mejoras para imágenes en móviles */
+.mobile-device img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+/* Mejoras para el hero en móviles */
+.mobile-device .hero {
+    background-attachment: scroll; /* Mejor rendimiento que fixed */
+}
+
+/* Indicadores de carga mejorados */
+.mobile-device .loading {
+    position: relative;
+}
+
+.mobile-device .loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid var(--gray-300);
+    border-top: 2px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Mejoras para notificaciones en móviles */
+.mobile-device .notification {
+    position: fixed;
+    top: 20px;
+    left: 10px;
+    right: 10px;
+    z-index: 10000;
+    border-radius: 8px;
+    padding: 16px;
+    font-size: 14px;
+    font-weight: 500;
+    animation: slideInDown 0.3s ease-out;
+}
+
+@keyframes slideInDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Mejoras para orientación landscape en móviles */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+    .mobile-device .navbar {
+        padding: 8px 0;
+    }
+    
+    .mobile-device .hero {
+        padding: 40px 0 20px;
+    }
+    
+    .mobile-device .section {
+        padding: 30px 0;
+    }
+}
+
+/* Optimizaciones para dispositivos con muesca (notch) */
+@supports (padding-top: env(safe-area-inset-top)) {
+    .mobile-device .navbar {
+        padding-top: calc(12px + env(safe-area-inset-top));
+    }
+    
+    .mobile-device .cart-sidebar {
+        padding-top: env(safe-area-inset-top);
+    }
+}
+
+/* Mejoras para preferencias de usuario */
+@media (prefers-reduced-motion: reduce) {
+    .mobile-device * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Mejoras para el modo oscuro en móviles */
+@media (prefers-color-scheme: dark) {
+    .mobile-device {
+        -webkit-tap-highlight-color: rgba(255, 64, 129, 0.3);
+    }
+    
+    .mobile-device .navbar {
+        background-color: rgba(26, 26, 26, 0.95);
+    }
+    
+    .mobile-device .product-card {
+        background-color: var(--gray-200);
+        border: 1px solid var(--gray-300);
+    }
+}
+
+/* Optimizaciones específicas para iOS */
+@supports (-webkit-touch-callout: none) {    .mobile-device input,
+    .mobile-device textarea {
+        -webkit-appearance: none;
+        appearance: none;
+        border-radius: 8px;
+    }
+    
+    .mobile-device .btn {
+        -webkit-appearance: none;
+        appearance: none;
+        border-radius: 8px;
+    }
+}
+
+/* Optimizaciones específicas para Android */
+@media screen and (-webkit-device-pixel-ratio: 2) {
+    .mobile-device img {
+        image-rendering: -webkit-optimize-contrast;
+    }
+}

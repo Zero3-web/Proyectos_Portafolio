@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Facturación</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="fas fa-receipt"></i>
+                <h2>FacturaPro</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item active" data-page="dashboard">
+                    <i class="fas fa-chart-dashboard"></i>
+                    <span>Dashboard</span>
+                </li>
+                <li class="nav-item" data-page="create-invoice">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Nueva Factura</span>
+                </li>
+                <li class="nav-item" data-page="invoices">
+                    <i class="fas fa-file-invoice"></i>
+                    <span>Facturas</span>
+                </li>
+                <li class="nav-item" data-page="clients">
+                    <i class="fas fa-users"></i>
+                    <span>Clientes</span>
+                </li>
+                <li class="nav-item" data-page="products">
+                    <i class="fas fa-box"></i>
+                    <span>Productos</span>
+                </li>
+                <li class="nav-item" data-page="reports">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Reportes</span>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 id="page-title">Dashboard</h1>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Buscar...">
+                    </div>
+                    <div class="user-profile">
+                        <img src="https://via.placeholder.com/40" alt="Usuario">
+                        <span>Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Dashboard Page -->
+                <div id="dashboard" class="page active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon blue">
+                                <i class="fas fa-file-invoice-dollar"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="total-invoices">0</h3>
+                                <p>Total Facturas</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon green">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="total-revenue">$0</h3>
+                                <p>Ingresos Totales</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon orange">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="total-clients">0</h3>
+                                <p>Clientes</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon red">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="pending-invoices">0</h3>
+                                <p>Pendientes</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="charts-grid">
+                        <div class="chart-container">
+                            <h3>Ventas por Mes</h3>
+                            <canvas id="salesChart"></canvas>
+                        </div>
+                        <div class="chart-container">
+                            <h3>Estado de Facturas</h3>
+                            <canvas id="statusChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="recent-invoices">
+                        <h3>Facturas Recientes</h3>
+                        <div class="table-container">
+                            <table id="recent-invoices-table">
+                                <thead>
+                                    <tr>
+                                        <th>Número</th>
+                                        <th>Cliente</th>
+                                        <th>Fecha</th>
+                                        <th>Total</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Se llenará dinámicamente -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Create Invoice Page -->
+                <div id="create-invoice" class="page">
+                    <div class="invoice-form-container">
+                        <form id="invoice-form">
+                            <div class="form-grid">
+                                <div class="form-section">
+                                    <h3>Información de la Factura</h3>
+                                    <div class="form-group">
+                                        <label for="invoice-number">Número de Factura</label>
+                                        <input type="text" id="invoice-number" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="invoice-date">Fecha</label>
+                                        <input type="date" id="invoice-date" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="due-date">Fecha de Vencimiento</label>
+                                        <input type="date" id="due-date" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-section">
+                                    <h3>Cliente</h3>
+                                    <div class="form-group">
+                                        <label for="client-select">Seleccionar Cliente</label>
+                                        <select id="client-select" required>
+                                            <option value="">Seleccionar...</option>
+                                        </select>
+                                        <button type="button" class="btn-secondary" id="add-client-btn">
+                                            <i class="fas fa-plus"></i> Nuevo Cliente
+                                        </button>
+                                    </div>
+                                    <div id="client-info" class="client-info-display">
+                                        <!-- Se mostrará la información del cliente seleccionado -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h3>Productos/Servicios</h3>
+                                <div class="products-header">
+                                    <button type="button" class="btn-primary" id="add-product-btn">
+                                        <i class="fas fa-plus"></i> Agregar Producto
+                                    </button>
+                                </div>
+                                <div class="table-container">
+                                    <table id="invoice-products-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Producto</th>
+                                                <th>Descripción</th>
+                                                <th>Cantidad</th>
+                                                <th>Precio Unit.</th>
+                                                <th>Total</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Se agregará dinámicamente -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="invoice-totals">
+                                <div class="totals-grid">
+                                    <div class="total-row">
+                                        <span>Subtotal:</span>
+                                        <span id="subtotal">$0.00</span>
+                                    </div>
+                                    <div class="total-row">
+                                        <span>IVA (16%):</span>
+                                        <span id="tax">$0.00</span>
+                                    </div>
+                                    <div class="total-row total">
+                                        <span>Total:</span>
+                                        <span id="total">$0.00</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="button" class="btn-secondary" id="save-draft-btn">
+                                    <i class="fas fa-save"></i> Guardar Borrador
+                                </button>
+                                <button type="submit" class="btn-primary">
+                                    <i class="fas fa-file-invoice"></i> Crear Factura
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Invoices Page -->
+                <div id="invoices" class="page">
+                    <div class="page-header">
+                        <h2>Gestión de Facturas</h2>
+                        <div class="page-actions">
+                            <button class="btn-primary" onclick="showPage('create-invoice')">
+                                <i class="fas fa-plus"></i> Nueva Factura
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="filters-bar">
+                        <input type="text" id="invoice-search" placeholder="Buscar facturas...">
+                        <select id="status-filter">
+                            <option value="">Todos los estados</option>
+                            <option value="pendiente">Pendiente</option>
+                            <option value="pagada">Pagada</option>
+                            <option value="vencida">Vencida</option>
+                            <option value="cancelada">Cancelada</option>
+                        </select>
+                        <input type="date" id="date-from">
+                        <input type="date" id="date-to">
+                    </div>
+
+                    <div class="table-container">
+                        <table id="invoices-table">
+                            <thead>
+                                <tr>
+                                    <th>Número</th>
+                                    <th>Cliente</th>
+                                    <th>Fecha</th>
+                                    <th>Vencimiento</th>
+                                    <th>Total</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Se llenará dinámicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Clients Page -->
+                <div id="clients" class="page">
+                    <div class="page-header">
+                        <h2>Gestión de Clientes</h2>
+                        <div class="page-actions">
+                            <button class="btn-primary" id="new-client-btn">
+                                <i class="fas fa-plus"></i> Nuevo Cliente
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table id="clients-table">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Email</th>
+                                    <th>Teléfono</th>
+                                    <th>RFC</th>
+                                    <th>Facturas</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Se llenará dinámicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Products Page -->
+                <div id="products" class="page">
+                    <div class="page-header">
+                        <h2>Gestión de Productos</h2>
+                        <div class="page-actions">
+                            <button class="btn-primary" id="new-product-btn">
+                                <i class="fas fa-plus"></i> Nuevo Producto
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table id="products-table">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Nombre</th>
+                                    <th>Descripción</th>
+                                    <th>Precio</th>
+                                    <th>Stock</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Se llenará dinámicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Reports Page -->
+                <div id="reports" class="page">
+                    <div class="page-header">
+                        <h2>Reportes</h2>
+                    </div>
+
+                    <div class="reports-grid">
+                        <div class="report-card">
+                            <div class="chart-container">
+                                <h3>Ventas por Cliente</h3>
+                                <canvas id="clientSalesChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="report-card">
+                            <div class="chart-container">
+                                <h3>Productos Más Vendidos</h3>
+                                <canvas id="productSalesChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="client-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="client-modal-title">Nuevo Cliente</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="client-form">
+                <div class="form-group">
+                    <label for="client-name">Nombre/Razón Social</label>
+                    <input type="text" id="client-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="client-email">Email</label>
+                    <input type="email" id="client-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="client-phone">Teléfono</label>
+                    <input type="tel" id="client-phone">
+                </div>
+                <div class="form-group">
+                    <label for="client-rfc">RFC</label>
+                    <input type="text" id="client-rfc">
+                </div>
+                <div class="form-group">
+                    <label for="client-address">Dirección</label>
+                    <textarea id="client-address" rows="3"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary modal-cancel">Cancelar</button>
+                    <button type="submit" class="btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="product-modal-title">Nuevo Producto</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="product-form">
+                <div class="form-group">
+                    <label for="product-code">Código</label>
+                    <input type="text" id="product-code" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-name">Nombre</label>
+                    <input type="text" id="product-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-description">Descripción</label>
+                    <textarea id="product-description" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="product-price">Precio</label>
+                    <input type="number" id="product-price" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-stock">Stock</label>
+                    <input type="number" id="product-stock" min="0">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary modal-cancel">Cancelar</button>
+                    <button type="submit" class="btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

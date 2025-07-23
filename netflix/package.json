@@ -1,0 +1,56 @@
+{
+  "name": "netflix-clone",
+  "version": "1.0.0",
+  "description": "Un clon moderno y responsive de Netflix desarrollado con HTML, CSS y JavaScript vanilla",
+  "main": "index.html",
+  "scripts": {
+    "start": "http-server . -p 3000 -c-1",
+    "dev": "live-server --port=3000 --entry-file=index.html",
+    "build": "echo 'No build process needed for vanilla HTML/CSS/JS project'",
+    "test": "echo 'No tests specified'",
+    "lint": "echo 'Linting not configured'",
+    "serve": "python -m http.server 3000"
+  },
+  "keywords": [
+    "netflix",
+    "clone",
+    "streaming",
+    "html",
+    "css",
+    "javascript",
+    "responsive",
+    "web-app",
+    "movie",
+    "series",
+    "entertainment"
+  ],
+  "author": "NetflixClone Developer",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tu-usuario/netflix-clone.git"
+  },
+  "homepage": "https://tu-usuario.github.io/netflix-clone",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "live-server": "^1.2.2"
+  },
+  "dependencies": {
+    "swiper": "^8.4.7",
+    "aos": "^2.3.4",
+    "particles.js": "^2.0.0",
+    "gsap": "^3.12.2"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "config": {
+    "port": "3000"
+  }
+}
